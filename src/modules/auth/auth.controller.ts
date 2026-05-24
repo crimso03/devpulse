@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendSuccess } from "../../utils/sendResponse";
 import { loginService, signupService } from "./auth.service";
-import { LoginBody, SignupBody } from "./auth.interface";
+import type { LoginBody, SignupBody } from "./auth.interface";
 
 export const signup = catchAsync(async (req: Request, res: Response) => {
   const user = await signupService(req.body as SignupBody);

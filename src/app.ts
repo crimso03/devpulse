@@ -1,16 +1,16 @@
-import express from "express";
+import express, { type Application, type Request, type Response } from "express";
 import cors from "cors";
 import authRoutes from "./modules/auth/auth.routes";
 import issueRoutes from "./modules/issues/issue.routes";
 import { notFoundMiddleware } from "./middleware/notFound.middleware";
 import { errorMiddleware } from "./middleware/error.middleware";
 
-const app = express();
+const app: Application = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (_req, res) => {
+app.get("/", (_req: Request, res: Response) => {
   res.json({
     success: true,
     message: "DevPulse API running",
