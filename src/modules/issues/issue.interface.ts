@@ -14,11 +14,12 @@ export interface Issue {
   updated_at: Date;
 }
 
-export interface Reporter {
+export interface  Reporter {
   id: number;
   name: string;
   role: UserRole;
-}
+
+  }
 
 export interface IssueWithReporter {
   id: number;
@@ -29,23 +30,30 @@ export interface IssueWithReporter {
   reporter: Reporter;
   created_at: Date;
   updated_at: Date;
-}
 
-export interface CreateIssueBody {
+  }
+
+export  interface CreateIssueBody {
   title: string;
   description: string;
   type: IssueType;
-}
 
-export interface UpdateIssueBody {
+
+   }
+
+export   interface UpdateIssueBody {
   title?: string;
   description?: string;
   type?: IssueType;
   status?: IssueStatus;
+
+
 }
 
-export interface IssueFilters {
+  export interface IssueFilters { 
   sort?: string;
   type?: string;
   status?: string;
+
+
 }
