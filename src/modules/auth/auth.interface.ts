@@ -8,6 +8,7 @@ export interface User {
   role: UserRole;
   created_at: Date;
   updated_at: Date;
+
 }
 
 export interface PublicUser {
@@ -17,22 +18,27 @@ export interface PublicUser {
   role: UserRole;
   created_at: Date;
   updated_at: Date;
-}
 
-export interface SignupBody {
+  }
+
+export interface  SignupBody {
   name: string;
   email: string;
   password: string;
   role?: UserRole;
-}
 
-export interface LoginBody {
+    }
+
+export  interface LoginBody {
   email: string;
   password: string;
+
+
 }
 
-export interface JwtUserPayload {
-  id: number;
+export interface  JwtUserPayload {
+   id: number;
   name: string;
   role: UserRole;
+
 }

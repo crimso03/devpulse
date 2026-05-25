@@ -14,11 +14,16 @@ import type {
   UserRole,
 } from "./auth.interface.js";
 
-const allowedRoles: UserRole[] = ["contributor", "maintainer"];
+
+
+const allowedRoles: UserRole[] =  ["contributor", "maintainer"];
+
 
 const isValidEmail = (email: string): boolean => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
 };
+
 
 const toPublicUser = (user: User): PublicUser => {
   return {
@@ -29,19 +34,23 @@ const toPublicUser = (user: User): PublicUser => {
     created_at: user.created_at,
     updated_at: user.updated_at,
   };
+
+
 };
 
 export const signupService = async (
   payload: SignupBody
 ): Promise<PublicUser> => {
-  const { name, email, password, role } = payload;
+  const { name, email, password, role } =  payload;
 
   if (!name || typeof name !== "string" || !name.trim()) {
     throw new AppError(StatusCodes.BAD_REQUEST, "Name is required");
-  }
+   
+   }
 
   if (!email || typeof email !== "string" || !isValidEmail(email)) {
     throw new AppError(StatusCodes.BAD_REQUEST, "Valid email is required");
+   
   }
 
   if (!password || typeof password !== "string") {
@@ -54,16 +63,20 @@ export const signupService = async (
     throw new AppError(
       StatusCodes.BAD_REQUEST,
       "Role must be contributor or maintainer"
-    );
+      );
+
   }
 
   const existingUser = await pool.query<{ id: number }>(
     "SELECT id FROM users WHERE email = $1",
     [email.toLowerCase()]
+
   );
 
   if ((existingUser.rowCount || 0) > 0) {
     throw new AppError(StatusCodes.CONFLICT, "Email already exists");
+   
+  
   }
 
   const hashedPassword = await bcrypt.hash(password, env.bcryptSaltRounds);
@@ -75,19 +88,23 @@ export const signupService = async (
     [name.trim(), email.toLowerCase(), hashedPassword, selectedRole]
   );
 
-  const createdUser = result.rows[0];
+  const createdUser =  result.rows[0];
 
   if (!createdUser) {
     throw new AppError(
       StatusCodes.INTERNAL_SERVER_ERROR,
       "User registration failed"
+    
     );
+ 
   }
 
   return createdUser;
+
+
 };
 
-export const loginService = async (
+export const loginService =  async (
   payload: LoginBody
 ): Promise<{ token: string; user: PublicUser }> => {
   const { email, password } = payload;
@@ -102,6 +119,7 @@ export const loginService = async (
 
   const result = await pool.query<User>("SELECT * FROM users WHERE email = $1", [
     email.toLowerCase(),
+
   ]);
 
   const user = result.rows[0];
@@ -120,6 +138,7 @@ export const loginService = async (
     id: user.id,
     name: user.name,
     role: user.role,
+
   };
 
   const signOptions = {
@@ -131,5 +150,7 @@ export const loginService = async (
   return {
     token,
     user: toPublicUser(user),
-  };
+   };
+
+
 };
