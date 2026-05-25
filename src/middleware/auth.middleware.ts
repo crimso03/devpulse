@@ -33,7 +33,7 @@ export const requireAuth = (
       throw new AppError(StatusCodes.UNAUTHORIZED, "Authorization token missing");
                }
 
-    const decoded = jwt.verify(token, env.jwtSecret);
+      const decoded = jwt.verify(token, env.jwtSecret);
 
     if (typeof decoded !== "object" || decoded === null) {
       throw new AppError(StatusCodes.UNAUTHORIZED, "Invalid token");
@@ -47,16 +47,17 @@ export const requireAuth = (
 
     req.user = {
 
-      id: user.id,
+     id: user.id,
       name: user.name,
       role: user.role,
 
     };
 
     next();
+    
   } catch (error) {
     if (error instanceof AppError) {
-      
+
       next(error);
       return;
 

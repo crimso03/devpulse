@@ -29,7 +29,8 @@ export const errorMiddleware = (
       StatusCodes.CONFLICT,
       "Duplicate resource",
       databaseError.detail
-    );
+       );
+
   }
 
   if (databaseError.code === "23514") {
@@ -38,14 +39,18 @@ export const errorMiddleware = (
       StatusCodes.BAD_REQUEST,
       "Database validation failed",
       databaseError.detail
-    );
+     );
+
   }
 
   console.error(err);
 
-  return sendError(
+   return sendError(
     res,
     StatusCodes.INTERNAL_SERVER_ERROR,
     "Internal server error"
-  );
+    );
+
+
+
 };
