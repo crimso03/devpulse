@@ -3,6 +3,9 @@ import { StatusCodes } from "http-status-codes";
 import { AppError } from "../utils/AppError";
 import { sendError } from "../utils/sendResponse";
 
+
+
+
 interface DatabaseError extends Error {
   code?: string;
   detail?: string;
