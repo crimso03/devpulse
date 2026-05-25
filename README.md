@@ -4,7 +4,7 @@ A simple backend API for tracking bugs and feature requests.
 
 ## Live Links
 
-Live API: https://your-deployed-api-url.com  
+Live API: https://devpulse-beta-seven.vercel.app/ 
 GitHub: https://github.com/crimso03/devpulse
 
 ## Features
